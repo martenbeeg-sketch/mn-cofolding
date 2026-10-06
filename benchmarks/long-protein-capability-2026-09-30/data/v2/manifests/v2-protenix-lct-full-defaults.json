@@ -1,0 +1,23 @@
+{
+  "target": "Protenix2 v2 next rung after NUP155 success",
+  "image": "mn-cofolding-af3-memory-v2:3.1.14-cu13",
+  "profile": {
+    "optimization_mode": "big",
+    "num_recycles": 10,
+    "num_diffusion_samples": 5,
+    "seeds": [
+      1
+    ]
+  },
+  "runs": [
+    {
+      "gene": "LCT",
+      "accession": "P09848",
+      "length": 1927,
+      "model": "protenix2",
+      "mode": "big",
+      "job_id": "20260930-212733-dd0e582d",
+      "name": "LCT 1927 aa \u00b7 Protenix2 \u00b7 v2 big \u00b7 10 recycles \u00b7 5 samples"
+    }
+  ]
+}

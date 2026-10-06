@@ -1,0 +1,49 @@
+{
+  "target": "Official AF3 v2 extension: CEP350 at 90% plus DMD and PRKDC at default 95%",
+  "image": "mn-cofolding-af3-memory-v2:3.1.14-cu13",
+  "profile": {
+    "optimization_mode": "big",
+    "num_recycles": 10,
+    "num_diffusion_samples": 5,
+    "seeds": [
+      1
+    ]
+  },
+  "runs": [
+    {
+      "job_id": "20260930-233727-007ec5b5",
+      "model": "alphafold3",
+      "gene": "CEP350",
+      "accession": "Q5VT06",
+      "length": 3117,
+      "mode": "big",
+      "image": "mn-cofolding-af3-memory-v2:3.1.14-cu13",
+      "name": "AF3 original weights \u00b7 CEP350 3117 aa \u00b7 v2 big \u00b7 90% XLA \u00b7 10 recycles \u00b7 5 samples",
+      "environment_overrides": {
+        "XLA_PYTHON_CLIENT_MEM_FRACTION": "0.90"
+      }
+    },
+    {
+      "job_id": "20260930-233800-a783def0",
+      "model": "alphafold3",
+      "gene": "DMD",
+      "accession": "P11532",
+      "length": 3685,
+      "mode": "big",
+      "image": "mn-cofolding-af3-memory-v2:3.1.14-cu13",
+      "name": "AF3 original weights \u00b7 DMD 3685 aa \u00b7 v2 big \u00b7 default 95% XLA \u00b7 10 recycles \u00b7 5 samples",
+      "environment_overrides": {}
+    },
+    {
+      "job_id": "20260930-233934-0c75c0f1",
+      "model": "alphafold3",
+      "gene": "PRKDC",
+      "accession": "P78527",
+      "length": 4128,
+      "mode": "big",
+      "image": "mn-cofolding-af3-memory-v2:3.1.14-cu13",
+      "name": "AF3 original weights \u00b7 PRKDC 4128 aa \u00b7 v2 big \u00b7 default 95% XLA \u00b7 10 recycles \u00b7 5 samples",
+      "environment_overrides": {}
+    }
+  ]
+}

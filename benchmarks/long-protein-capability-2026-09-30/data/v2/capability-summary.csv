@@ -1,0 +1,30 @@
+image,environment_profile,model,mode,largest_success_aa,largest_success_target,success_runtime_seconds,next_failed_aa,next_failed_target,attempts,completed,failed
+mn-cofolding-af3-memory-v2:3.1.14-cu13,command buffers disabled,boltz2,big,502,CHRNA7,80.0,,,1,1,0
+mn-cofolding-af3-memory-v2:3.1.14-cu13,command buffers disabled,chai1,big,,,,1391,NUP155,1,0,1
+mn-cofolding-af3-memory-v2:3.1.14-cu13,command buffers disabled,esmfold2,big,,,,970,SLC26A8,1,0,1
+mn-cofolding-af3-memory-v2:3.1.14-cu13,command buffers disabled,opendde,big,,,,502,CHRNA7,1,0,1
+mn-cofolding-af3-memory-v2:3.1.14-cu13,command buffers disabled,rosettafold3,big,,,,502,CHRNA7,1,0,1
+mn-cofolding-af3-memory-v2:3.1.14-cu13,fraction 0.90,alphafold3,big,2414,EP300,632.0,3117,CEP350,2,1,1
+mn-cofolding-af3-memory-v2:3.1.14-cu13,fraction 0.90,boltz2,big,502,CHRNA7,49.0,970,SLC26A8,2,1,1
+mn-cofolding-af3-memory-v2:3.1.14-cu13,fraction 0.90,chai1,big,1391,NUP155,486.0,1927,LCT,2,1,1
+mn-cofolding-af3-memory-v2:3.1.14-cu13,fraction 0.90,esmfold2,big,970,SLC26A8,87.0,1391,NUP155,2,1,1
+mn-cofolding-af3-memory-v2:3.1.14-cu13,fraction 0.90,esmfold2_lm300m,big,1391,NUP155,72.0,1927,LCT,2,1,1
+mn-cofolding-af3-memory-v2:3.1.14-cu13,fraction 0.90,esmfold2_lm600m,big,1391,NUP155,72.0,1927,LCT,2,1,1
+mn-cofolding-af3-memory-v2:3.1.14-cu13,fraction 0.90,intellifold2,big,970,SLC26A8,454.0,1391,NUP155,2,1,1
+mn-cofolding-af3-memory-v2:3.1.14-cu13,fraction 0.90,openbind0,big,1927,LCT,378.0,2414,EP300,2,1,1
+mn-cofolding-af3-memory-v2:3.1.14-cu13,fraction 0.90,opendde,big,,,,502,CHRNA7,1,0,1
+mn-cofolding-af3-memory-v2:3.1.14-cu13,fraction 0.90,openfold3,big,1927,LCT,397.0,2414,EP300,2,1,1
+mn-cofolding-af3-memory-v2:3.1.14-cu13,fraction 0.90,protenix2,big,970,SLC26A8,340.0,1391,NUP155,3,1,2
+mn-cofolding-af3-memory-v2:3.1.14-cu13,fraction 0.90,rosettafold3,big,502,CHRNA7,53.0,970,SLC26A8,2,1,1
+mn-cofolding-af3-memory-v2:3.1.14-cu13,fraction 0.95,alphafold3,big,2414,EP300,686.7,3117,CEP350,4,1,3
+mn-cofolding-af3-memory-v2:3.1.14-cu13,fraction 0.95,boltz2,big,,,,502,CHRNA7,2,0,2
+mn-cofolding-af3-memory-v2:3.1.14-cu13,fraction 0.95,chai1,big,,,,1391,NUP155,2,0,2
+mn-cofolding-af3-memory-v2:3.1.14-cu13,fraction 0.95,esmfold2,big,,,,970,SLC26A8,2,0,2
+mn-cofolding-af3-memory-v2:3.1.14-cu13,fraction 0.95,esmfold2_lm300m,big,1391,NUP155,72.0,1927,LCT,2,1,1
+mn-cofolding-af3-memory-v2:3.1.14-cu13,fraction 0.95,esmfold2_lm600m,big,1391,NUP155,92.0,1927,LCT,2,1,1
+mn-cofolding-af3-memory-v2:3.1.14-cu13,fraction 0.95,intellifold2,big,970,SLC26A8,484.0,1391,NUP155,2,1,1
+mn-cofolding-af3-memory-v2:3.1.14-cu13,fraction 0.95,openbind0,big,1927,LCT,406.0,2414,EP300,2,1,1
+mn-cofolding-af3-memory-v2:3.1.14-cu13,fraction 0.95,opendde,big,,,,502,CHRNA7,1,0,1
+mn-cofolding-af3-memory-v2:3.1.14-cu13,fraction 0.95,openfold3,big,1927,LCT,425.0,2414,EP300,2,1,1
+mn-cofolding-af3-memory-v2:3.1.14-cu13,fraction 0.95,protenix2,big,1391,NUP155,728.0,1927,LCT,2,1,1
+mn-cofolding-af3-memory-v2:3.1.14-cu13,fraction 0.95,rosettafold3,big,,,,502,CHRNA7,2,0,2

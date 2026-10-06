@@ -1,0 +1,17 @@
+{
+  "dataset": "long-protein capability sweep",
+  "image": "mn-cofolding-af3-memory-v2:3.1.14-cu13",
+  "gpu": "NVIDIA GeForce RTX 4090 24 GB",
+  "mode": "big",
+  "attempt_count": 54,
+  "completed": 19,
+  "failed": 35,
+  "profiles": {
+    "command buffers disabled": 5,
+    "fraction 0.90": 24,
+    "fraction 0.95": 25
+  },
+  "source_attempts": "all-attempts.csv",
+  "source_summary": "capability-summary.csv",
+  "other_mode_attempts_in_this_image": 0
+}

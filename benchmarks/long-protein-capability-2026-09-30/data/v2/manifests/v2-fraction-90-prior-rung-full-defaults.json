@@ -1,0 +1,108 @@
+{
+  "target": "v2 90 percent pool prior-largest-success rung validation",
+  "image": "mn-cofolding-af3-memory-v2:3.1.14-cu13",
+  "profile": {
+    "optimization_mode": "big",
+    "num_recycles": 10,
+    "num_diffusion_samples": 5,
+    "seeds": [
+      1
+    ]
+  },
+  "environment_overrides": {
+    "XLA_PYTHON_CLIENT_MEM_FRACTION": "0.90"
+  },
+  "runs": [
+    {
+      "job_id": "20260930-225144-b4025d20",
+      "model": "esmfold2_lm300m",
+      "gene": "NUP155",
+      "accession": "O75694",
+      "length": 1391,
+      "name": "NUP155 1391 aa \u00b7 esmfold2_lm300m \u00b7 v2 big \u00b7 90% XLA prior max-pass validation \u00b7 10 recycles \u00b7 5 samples",
+      "image": "mn-cofolding-af3-memory-v2:3.1.14-cu13",
+      "mode": "big",
+      "environment_overrides": {
+        "XLA_PYTHON_CLIENT_MEM_FRACTION": "0.90"
+      }
+    },
+    {
+      "job_id": "20260930-225144-a9e9a09a",
+      "model": "esmfold2_lm600m",
+      "gene": "NUP155",
+      "accession": "O75694",
+      "length": 1391,
+      "name": "NUP155 1391 aa \u00b7 esmfold2_lm600m \u00b7 v2 big \u00b7 90% XLA prior max-pass validation \u00b7 10 recycles \u00b7 5 samples",
+      "image": "mn-cofolding-af3-memory-v2:3.1.14-cu13",
+      "mode": "big",
+      "environment_overrides": {
+        "XLA_PYTHON_CLIENT_MEM_FRACTION": "0.90"
+      }
+    },
+    {
+      "job_id": "20260930-225144-51a7d802",
+      "model": "intellifold2",
+      "gene": "SLC26A8",
+      "accession": "Q96RN1",
+      "length": 970,
+      "name": "SLC26A8 970 aa \u00b7 intellifold2 \u00b7 v2 big \u00b7 90% XLA prior max-pass validation \u00b7 10 recycles \u00b7 5 samples",
+      "image": "mn-cofolding-af3-memory-v2:3.1.14-cu13",
+      "mode": "big",
+      "environment_overrides": {
+        "XLA_PYTHON_CLIENT_MEM_FRACTION": "0.90"
+      }
+    },
+    {
+      "job_id": "20260930-225144-d0bfa781",
+      "model": "openbind0",
+      "gene": "LCT",
+      "accession": "P09848",
+      "length": 1927,
+      "name": "LCT 1927 aa \u00b7 openbind0 \u00b7 v2 big \u00b7 90% XLA prior max-pass validation \u00b7 10 recycles \u00b7 5 samples",
+      "image": "mn-cofolding-af3-memory-v2:3.1.14-cu13",
+      "mode": "big",
+      "environment_overrides": {
+        "XLA_PYTHON_CLIENT_MEM_FRACTION": "0.90"
+      }
+    },
+    {
+      "job_id": "20260930-225144-a995f1fc",
+      "model": "openfold3",
+      "gene": "LCT",
+      "accession": "P09848",
+      "length": 1927,
+      "name": "LCT 1927 aa \u00b7 openfold3 \u00b7 v2 big \u00b7 90% XLA prior max-pass validation \u00b7 10 recycles \u00b7 5 samples",
+      "image": "mn-cofolding-af3-memory-v2:3.1.14-cu13",
+      "mode": "big",
+      "environment_overrides": {
+        "XLA_PYTHON_CLIENT_MEM_FRACTION": "0.90"
+      }
+    },
+    {
+      "job_id": "20260930-225144-3b981798",
+      "model": "protenix2",
+      "gene": "NUP155",
+      "accession": "O75694",
+      "length": 1391,
+      "name": "NUP155 1391 aa \u00b7 protenix2 \u00b7 v2 big \u00b7 90% XLA prior max-pass validation \u00b7 10 recycles \u00b7 5 samples",
+      "image": "mn-cofolding-af3-memory-v2:3.1.14-cu13",
+      "mode": "big",
+      "environment_overrides": {
+        "XLA_PYTHON_CLIENT_MEM_FRACTION": "0.90"
+      }
+    },
+    {
+      "job_id": "20260930-225144-86193332",
+      "model": "alphafold3",
+      "gene": "EP300",
+      "accession": "Q09472",
+      "length": 2414,
+      "name": "EP300 2414 aa \u00b7 alphafold3 \u00b7 v2 big \u00b7 90% XLA prior max-pass validation \u00b7 10 recycles \u00b7 5 samples",
+      "image": "mn-cofolding-af3-memory-v2:3.1.14-cu13",
+      "mode": "big",
+      "environment_overrides": {
+        "XLA_PYTHON_CLIENT_MEM_FRACTION": "0.90"
+      }
+    }
+  ]
+}

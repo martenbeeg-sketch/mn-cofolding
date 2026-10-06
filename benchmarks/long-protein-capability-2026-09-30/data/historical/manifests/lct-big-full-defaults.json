@@ -1,0 +1,74 @@
+{
+  "target": "LCT",
+  "sequence_length": 1927,
+  "source_fasta": "/mnt/data/RESULTS/mn-cofolding-workdir/workdir/runs/cofolding/long-protein-off-fast-big-20260930/sequences/LCT_P09848.fasta",
+  "msa": "ColabFold MSA server, shared cache; same sequence per model",
+  "framework": "mn-cofolding shared JAX AlphaFold 3 runner image",
+  "image": "mn-cofolding-af3-memory:3.1.14-cu13",
+  "gpu": "one scheduler-assigned GPU per job",
+  "profile": {
+    "optimization_mode": "big",
+    "num_recycles": 10,
+    "num_diffusion_samples": 5,
+    "seeds": [
+      1
+    ]
+  },
+  "models": [
+    {
+      "model": "openbind0",
+      "job_id": "20260930-192644-d0b051b4",
+      "name": "LCT 1927 capability \u00b7 openbind0 \u00b7 big \u00b7 10 recycles \u00b7 5 samples"
+    },
+    {
+      "model": "openfold3",
+      "job_id": "20260930-192644-3002c36d",
+      "name": "LCT 1927 capability \u00b7 openfold3 \u00b7 big \u00b7 10 recycles \u00b7 5 samples"
+    },
+    {
+      "model": "boltz2",
+      "job_id": "20260930-192644-7e63a1b5",
+      "name": "LCT 1927 capability \u00b7 boltz2 \u00b7 big \u00b7 10 recycles \u00b7 5 samples"
+    },
+    {
+      "model": "protenix2",
+      "job_id": "20260930-192644-76245f8a",
+      "name": "LCT 1927 capability \u00b7 protenix2 \u00b7 big \u00b7 10 recycles \u00b7 5 samples"
+    },
+    {
+      "model": "rosettafold3",
+      "job_id": "20260930-192644-1acae427",
+      "name": "LCT 1927 capability \u00b7 rosettafold3 \u00b7 big \u00b7 10 recycles \u00b7 5 samples"
+    },
+    {
+      "model": "chai1",
+      "job_id": "20260930-192644-ccf1f8bf",
+      "name": "LCT 1927 capability \u00b7 chai1 \u00b7 big \u00b7 10 recycles \u00b7 5 samples"
+    },
+    {
+      "model": "intellifold2",
+      "job_id": "20260930-192644-bbbf95a2",
+      "name": "LCT 1927 capability \u00b7 intellifold2 \u00b7 big \u00b7 10 recycles \u00b7 5 samples"
+    },
+    {
+      "model": "opendde",
+      "job_id": "20260930-192644-274128e0",
+      "name": "LCT 1927 capability \u00b7 opendde \u00b7 big \u00b7 10 recycles \u00b7 5 samples"
+    },
+    {
+      "model": "esmfold2",
+      "job_id": "20260930-192644-9217d117",
+      "name": "LCT 1927 capability \u00b7 esmfold2 \u00b7 big \u00b7 10 recycles \u00b7 5 samples"
+    },
+    {
+      "model": "esmfold2_lm600m",
+      "job_id": "20260930-192644-2cad1fc9",
+      "name": "LCT 1927 capability \u00b7 esmfold2_lm600m \u00b7 big \u00b7 10 recycles \u00b7 5 samples"
+    },
+    {
+      "model": "esmfold2_lm300m",
+      "job_id": "20260930-192644-1d016571",
+      "name": "LCT 1927 capability \u00b7 esmfold2_lm300m \u00b7 big \u00b7 10 recycles \u00b7 5 samples"
+    }
+  ]
+}

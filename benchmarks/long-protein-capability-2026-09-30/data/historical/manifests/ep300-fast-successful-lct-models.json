@@ -1,0 +1,33 @@
+{
+  "target": "EP300",
+  "sequence_length": 2414,
+  "source_fasta": "/mnt/data/RESULTS/mn-cofolding-workdir/workdir/runs/cofolding/long-protein-off-fast-big-20260930/sequences/EP300_Q09472.fasta",
+  "msa": "ColabFold MSA server with shared cache; same input across runs",
+  "image": "mn-cofolding-af3-memory:3.1.14-cu13",
+  "framework": "shared JAX AF3 runner",
+  "profile": {
+    "optimization_mode": "fast",
+    "num_recycles": 10,
+    "num_diffusion_samples": 5,
+    "seeds": [
+      1
+    ]
+  },
+  "runs": [
+    {
+      "model": "alphafold3",
+      "job_id": "20260930-201559-0f9ed45b",
+      "name": "EP300 2414 capability \u00b7 alphafold3 \u00b7 fast \u00b7 10 recycles \u00b7 5 samples"
+    },
+    {
+      "model": "openbind0",
+      "job_id": "20260930-201559-d53464dd",
+      "name": "EP300 2414 capability \u00b7 openbind0 \u00b7 fast \u00b7 10 recycles \u00b7 5 samples"
+    },
+    {
+      "model": "openfold3",
+      "job_id": "20260930-201559-e11fb4b7",
+      "name": "EP300 2414 capability \u00b7 openfold3 \u00b7 fast \u00b7 10 recycles \u00b7 5 samples"
+    }
+  ]
+}

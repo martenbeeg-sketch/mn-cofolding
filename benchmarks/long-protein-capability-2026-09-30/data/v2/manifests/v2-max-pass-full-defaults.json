@@ -1,0 +1,104 @@
+{
+  "target": "v2 confirmation at each engine largest v1 success rung",
+  "image": "mn-cofolding-af3-memory-v2:3.1.14-cu13",
+  "profile": {
+    "optimization_mode": "big",
+    "num_recycles": 10,
+    "num_diffusion_samples": 5,
+    "seeds": [
+      1
+    ]
+  },
+  "runs": [
+    {
+      "gene": "LCT",
+      "accession": "P09848",
+      "length": 1927,
+      "model": "openbind0",
+      "mode": "big",
+      "image": "mn-cofolding-af3-memory-v2:3.1.14-cu13",
+      "job_id": "20260930-213114-58543536",
+      "name": "LCT 1927 aa \u00b7 openbind0 \u00b7 v2 big max-pass check \u00b7 10 recycles \u00b7 5 samples"
+    },
+    {
+      "gene": "LCT",
+      "accession": "P09848",
+      "length": 1927,
+      "model": "openfold3",
+      "mode": "big",
+      "image": "mn-cofolding-af3-memory-v2:3.1.14-cu13",
+      "job_id": "20260930-213114-04251f27",
+      "name": "LCT 1927 aa \u00b7 openfold3 \u00b7 v2 big max-pass check \u00b7 10 recycles \u00b7 5 samples"
+    },
+    {
+      "gene": "CHRNA7",
+      "accession": "P36544",
+      "length": 502,
+      "model": "boltz2",
+      "mode": "big",
+      "image": "mn-cofolding-af3-memory-v2:3.1.14-cu13",
+      "job_id": "20260930-213114-07d2fb56",
+      "name": "CHRNA7 502 aa \u00b7 boltz2 \u00b7 v2 big max-pass check \u00b7 10 recycles \u00b7 5 samples"
+    },
+    {
+      "gene": "CHRNA7",
+      "accession": "P36544",
+      "length": 502,
+      "model": "rosettafold3",
+      "mode": "big",
+      "image": "mn-cofolding-af3-memory-v2:3.1.14-cu13",
+      "job_id": "20260930-213114-0b681ce4",
+      "name": "CHRNA7 502 aa \u00b7 rosettafold3 \u00b7 v2 big max-pass check \u00b7 10 recycles \u00b7 5 samples"
+    },
+    {
+      "gene": "NUP155",
+      "accession": "O75694",
+      "length": 1391,
+      "model": "chai1",
+      "mode": "big",
+      "image": "mn-cofolding-af3-memory-v2:3.1.14-cu13",
+      "job_id": "20260930-213114-1116bb39",
+      "name": "NUP155 1391 aa \u00b7 chai1 \u00b7 v2 big max-pass check \u00b7 10 recycles \u00b7 5 samples"
+    },
+    {
+      "gene": "SLC26A8",
+      "accession": "Q96RN1",
+      "length": 970,
+      "model": "intellifold2",
+      "mode": "big",
+      "image": "mn-cofolding-af3-memory-v2:3.1.14-cu13",
+      "job_id": "20260930-213114-8f4ee0ed",
+      "name": "SLC26A8 970 aa \u00b7 intellifold2 \u00b7 v2 big max-pass check \u00b7 10 recycles \u00b7 5 samples"
+    },
+    {
+      "gene": "SLC26A8",
+      "accession": "Q96RN1",
+      "length": 970,
+      "model": "esmfold2",
+      "mode": "big",
+      "image": "mn-cofolding-af3-memory-v2:3.1.14-cu13",
+      "job_id": "20260930-213114-4f63b3f0",
+      "name": "SLC26A8 970 aa \u00b7 esmfold2 \u00b7 v2 big max-pass check \u00b7 10 recycles \u00b7 5 samples"
+    },
+    {
+      "gene": "NUP155",
+      "accession": "O75694",
+      "length": 1391,
+      "model": "esmfold2_lm600m",
+      "mode": "big",
+      "image": "mn-cofolding-af3-memory-v2:3.1.14-cu13",
+      "job_id": "20260930-213114-02da723a",
+      "name": "NUP155 1391 aa \u00b7 esmfold2_lm600m \u00b7 v2 big max-pass check \u00b7 10 recycles \u00b7 5 samples"
+    },
+    {
+      "gene": "NUP155",
+      "accession": "O75694",
+      "length": 1391,
+      "model": "esmfold2_lm300m",
+      "mode": "big",
+      "image": "mn-cofolding-af3-memory-v2:3.1.14-cu13",
+      "job_id": "20260930-213114-04dd385c",
+      "name": "NUP155 1391 aa \u00b7 esmfold2_lm300m \u00b7 v2 big max-pass check \u00b7 10 recycles \u00b7 5 samples"
+    }
+  ]
+}

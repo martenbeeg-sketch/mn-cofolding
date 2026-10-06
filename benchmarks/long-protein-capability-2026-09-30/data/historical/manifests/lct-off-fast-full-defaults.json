@@ -1,0 +1,165 @@
+{
+  "target": "LCT",
+  "sequence_length": 1927,
+  "source_fasta": "/mnt/data/RESULTS/mn-cofolding-workdir/workdir/runs/cofolding/long-protein-off-fast-big-20260930/sequences/LCT_P09848.fasta",
+  "msa": "ColabFold MSA server with shared cache; identical query per run",
+  "framework": "mn-cofolding shared JAX AlphaFold 3 runner image",
+  "image": "mn-cofolding-af3-memory:3.1.14-cu13",
+  "gpu": "one scheduler-assigned GPU per job",
+  "profile": {
+    "num_recycles": 10,
+    "num_diffusion_samples": 5,
+    "seeds": [
+      1
+    ]
+  },
+  "runs": [
+    {
+      "model": "openbind0",
+      "optimization_mode": "off",
+      "job_id": "20260930-193117-c70b27c7",
+      "name": "LCT 1927 capability \u00b7 openbind0 \u00b7 off \u00b7 10 recycles \u00b7 5 samples"
+    },
+    {
+      "model": "openfold3",
+      "optimization_mode": "off",
+      "job_id": "20260930-193117-e4b85e64",
+      "name": "LCT 1927 capability \u00b7 openfold3 \u00b7 off \u00b7 10 recycles \u00b7 5 samples"
+    },
+    {
+      "model": "boltz2",
+      "optimization_mode": "off",
+      "job_id": "20260930-193117-cda4a613",
+      "name": "LCT 1927 capability \u00b7 boltz2 \u00b7 off \u00b7 10 recycles \u00b7 5 samples"
+    },
+    {
+      "model": "protenix2",
+      "optimization_mode": "off",
+      "job_id": "20260930-193117-8548ac99",
+      "name": "LCT 1927 capability \u00b7 protenix2 \u00b7 off \u00b7 10 recycles \u00b7 5 samples"
+    },
+    {
+      "model": "rosettafold3",
+      "optimization_mode": "off",
+      "job_id": "20260930-193117-271d354f",
+      "name": "LCT 1927 capability \u00b7 rosettafold3 \u00b7 off \u00b7 10 recycles \u00b7 5 samples"
+    },
+    {
+      "model": "chai1",
+      "optimization_mode": "off",
+      "job_id": "20260930-193117-629ee79a",
+      "name": "LCT 1927 capability \u00b7 chai1 \u00b7 off \u00b7 10 recycles \u00b7 5 samples"
+    },
+    {
+      "model": "intellifold2",
+      "optimization_mode": "off",
+      "job_id": "20260930-193117-c7598801",
+      "name": "LCT 1927 capability \u00b7 intellifold2 \u00b7 off \u00b7 10 recycles \u00b7 5 samples"
+    },
+    {
+      "model": "opendde",
+      "optimization_mode": "off",
+      "job_id": "20260930-193117-23a69ef8",
+      "name": "LCT 1927 capability \u00b7 opendde \u00b7 off \u00b7 10 recycles \u00b7 5 samples"
+    },
+    {
+      "model": "esmfold2",
+      "optimization_mode": "off",
+      "job_id": "20260930-193117-2732954c",
+      "name": "LCT 1927 capability \u00b7 esmfold2 \u00b7 off \u00b7 10 recycles \u00b7 5 samples"
+    },
+    {
+      "model": "esmfold2_lm600m",
+      "optimization_mode": "off",
+      "job_id": "20260930-193117-c3194305",
+      "name": "LCT 1927 capability \u00b7 esmfold2_lm600m \u00b7 off \u00b7 10 recycles \u00b7 5 samples"
+    },
+    {
+      "model": "esmfold2_lm300m",
+      "optimization_mode": "off",
+      "job_id": "20260930-193117-3f6703aa",
+      "name": "LCT 1927 capability \u00b7 esmfold2_lm300m \u00b7 off \u00b7 10 recycles \u00b7 5 samples"
+    },
+    {
+      "model": "openbind0",
+      "optimization_mode": "fast",
+      "job_id": "20260930-193117-1ef5bfd2",
+      "name": "LCT 1927 capability \u00b7 openbind0 \u00b7 fast \u00b7 10 recycles \u00b7 5 samples"
+    },
+    {
+      "model": "openfold3",
+      "optimization_mode": "fast",
+      "job_id": "20260930-193117-e314975b",
+      "name": "LCT 1927 capability \u00b7 openfold3 \u00b7 fast \u00b7 10 recycles \u00b7 5 samples"
+    },
+    {
+      "model": "boltz2",
+      "optimization_mode": "fast",
+      "job_id": "20260930-193117-0e947534",
+      "name": "LCT 1927 capability \u00b7 boltz2 \u00b7 fast \u00b7 10 recycles \u00b7 5 samples"
+    },
+    {
+      "model": "protenix2",
+      "optimization_mode": "fast",
+      "job_id": "20260930-193117-8e123ddd",
+      "name": "LCT 1927 capability \u00b7 protenix2 \u00b7 fast \u00b7 10 recycles \u00b7 5 samples"
+    },
+    {
+      "model": "rosettafold3",
+      "optimization_mode": "fast",
+      "job_id": "20260930-193117-c40205ed",
+      "name": "LCT 1927 capability \u00b7 rosettafold3 \u00b7 fast \u00b7 10 recycles \u00b7 5 samples"
+    },
+    {
+      "model": "chai1",
+      "optimization_mode": "fast",
+      "job_id": "20260930-193117-e61ecda2",
+      "name": "LCT 1927 capability \u00b7 chai1 \u00b7 fast \u00b7 10 recycles \u00b7 5 samples"
+    },
+    {
+      "model": "intellifold2",
+      "optimization_mode": "fast",
+      "job_id": "20260930-193117-150b895a",
+      "name": "LCT 1927 capability \u00b7 intellifold2 \u00b7 fast \u00b7 10 recycles \u00b7 5 samples"
+    },
+    {
+      "model": "opendde",
+      "optimization_mode": "fast",
+      "job_id": "20260930-193117-217d9e02",
+      "name": "LCT 1927 capability \u00b7 opendde \u00b7 fast \u00b7 10 recycles \u00b7 5 samples"
+    },
+    {
+      "model": "esmfold2",
+      "optimization_mode": "fast",
+      "job_id": "20260930-193117-c41cc722",
+      "name": "LCT 1927 capability \u00b7 esmfold2 \u00b7 fast \u00b7 10 recycles \u00b7 5 samples"
+    },
+    {
+      "model": "esmfold2_lm600m",
+      "optimization_mode": "fast",
+      "job_id": "20260930-193117-de442605",
+      "name": "LCT 1927 capability \u00b7 esmfold2_lm600m \u00b7 fast \u00b7 10 recycles \u00b7 5 samples"
+    },
+    {
+      "model": "esmfold2_lm300m",
+      "optimization_mode": "fast",
+      "job_id": "20260930-193117-21a8a56e",
+      "name": "LCT 1927 capability \u00b7 esmfold2_lm300m \u00b7 fast \u00b7 10 recycles \u00b7 5 samples"
+    },
+    {
+      "model": "alphafold3",
+      "optimization_mode": "off",
+      "job_id": "20260930-193130-91d1c934",
+      "name": "LCT 1927 capability \u00b7 alphafold3 official \u00b7 off \u00b7 10 recycles \u00b7 5 samples"
+    },
+    {
+      "model": "alphafold3",
+      "optimization_mode": "fast",
+      "job_id": "20260930-193130-87019adc",
+      "name": "LCT 1927 capability \u00b7 alphafold3 official \u00b7 fast \u00b7 10 recycles \u00b7 5 samples"
+    }
+  ],
+  "models_included": [
+    "alphafold3 plus all 11 supported clone weight variants"
+  ]
+}

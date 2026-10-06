@@ -1,0 +1,82 @@
+{
+  "target": "v2 90-percent-memory-pool comparison",
+  "image": "mn-cofolding-af3-memory-v2:3.1.14-cu13",
+  "profile": {
+    "optimization_mode": "big",
+    "num_recycles": 10,
+    "num_diffusion_samples": 5,
+    "seeds": [
+      1
+    ]
+  },
+  "environment_overrides": {
+    "XLA_PYTHON_CLIENT_MEM_FRACTION": "0.90"
+  },
+  "runs": [
+    {
+      "gene": "CHRNA7",
+      "accession": "P36544",
+      "length": 502,
+      "model": "boltz2",
+      "mode": "big",
+      "job_id": "20260930-220854-96610ec3",
+      "name": "CHRNA7 502 aa \u00b7 boltz2 \u00b7 v2 big \u00b7 90% XLA fraction \u00b7 10 recycles \u00b7 5 samples",
+      "image": "mn-cofolding-af3-memory-v2:3.1.14-cu13",
+      "environment_overrides": {
+        "XLA_PYTHON_CLIENT_MEM_FRACTION": "0.90"
+      }
+    },
+    {
+      "gene": "CHRNA7",
+      "accession": "P36544",
+      "length": 502,
+      "model": "rosettafold3",
+      "mode": "big",
+      "job_id": "20260930-220854-62265949",
+      "name": "CHRNA7 502 aa \u00b7 rosettafold3 \u00b7 v2 big \u00b7 90% XLA fraction \u00b7 10 recycles \u00b7 5 samples",
+      "image": "mn-cofolding-af3-memory-v2:3.1.14-cu13",
+      "environment_overrides": {
+        "XLA_PYTHON_CLIENT_MEM_FRACTION": "0.90"
+      }
+    },
+    {
+      "gene": "NUP155",
+      "accession": "O75694",
+      "length": 1391,
+      "model": "chai1",
+      "mode": "big",
+      "job_id": "20260930-220854-d8cb7a00",
+      "name": "NUP155 1391 aa \u00b7 chai1 \u00b7 v2 big \u00b7 90% XLA fraction \u00b7 10 recycles \u00b7 5 samples",
+      "image": "mn-cofolding-af3-memory-v2:3.1.14-cu13",
+      "environment_overrides": {
+        "XLA_PYTHON_CLIENT_MEM_FRACTION": "0.90"
+      }
+    },
+    {
+      "gene": "SLC26A8",
+      "accession": "Q96RN1",
+      "length": 970,
+      "model": "esmfold2",
+      "mode": "big",
+      "job_id": "20260930-220854-4ca519a5",
+      "name": "SLC26A8 970 aa \u00b7 esmfold2 \u00b7 v2 big \u00b7 90% XLA fraction \u00b7 10 recycles \u00b7 5 samples",
+      "image": "mn-cofolding-af3-memory-v2:3.1.14-cu13",
+      "environment_overrides": {
+        "XLA_PYTHON_CLIENT_MEM_FRACTION": "0.90"
+      }
+    },
+    {
+      "gene": "CHRNA7",
+      "accession": "P36544",
+      "length": 502,
+      "model": "opendde",
+      "mode": "big",
+      "job_id": "20260930-220854-60f551b2",
+      "name": "CHRNA7 502 aa \u00b7 opendde \u00b7 v2 big \u00b7 90% XLA fraction \u00b7 10 recycles \u00b7 5 samples",
+      "image": "mn-cofolding-af3-memory-v2:3.1.14-cu13",
+      "environment_overrides": {
+        "XLA_PYTHON_CLIENT_MEM_FRACTION": "0.90"
+      }
+    }
+  ]
+}

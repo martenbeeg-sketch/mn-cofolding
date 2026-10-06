@@ -1,0 +1,174 @@
+{
+  "image": "mn-cofolding-af3-memory:3.1.14-cu13",
+  "profile": {
+    "num_recycles": 10,
+    "num_diffusion_samples": 5,
+    "seeds": [
+      1
+    ]
+  },
+  "runs": [
+    {
+      "gene": "SLC26A8",
+      "accession": "Q96RN1",
+      "length": 970,
+      "model": "protenix2",
+      "mode": "off",
+      "job_id": "20260930-204155-cbcdbd50",
+      "name": "SLC26A8 970 aa \u00b7 protenix2 \u00b7 off \u00b7 10 recycles \u00b7 5 samples"
+    },
+    {
+      "gene": "SLC26A8",
+      "accession": "Q96RN1",
+      "length": 970,
+      "model": "protenix2",
+      "mode": "fast",
+      "job_id": "20260930-204155-190b340b",
+      "name": "SLC26A8 970 aa \u00b7 protenix2 \u00b7 fast \u00b7 10 recycles \u00b7 5 samples"
+    },
+    {
+      "gene": "SLC26A8",
+      "accession": "Q96RN1",
+      "length": 970,
+      "model": "esmfold2",
+      "mode": "off",
+      "job_id": "20260930-204155-d77c01aa",
+      "name": "SLC26A8 970 aa \u00b7 esmfold2 \u00b7 off \u00b7 10 recycles \u00b7 5 samples"
+    },
+    {
+      "gene": "SLC26A8",
+      "accession": "Q96RN1",
+      "length": 970,
+      "model": "esmfold2",
+      "mode": "fast",
+      "job_id": "20260930-204155-f91a28e7",
+      "name": "SLC26A8 970 aa \u00b7 esmfold2 \u00b7 fast \u00b7 10 recycles \u00b7 5 samples"
+    },
+    {
+      "gene": "NUP155",
+      "accession": "O75694",
+      "length": 1391,
+      "model": "chai1",
+      "mode": "off",
+      "job_id": "20260930-204211-b1410159",
+      "name": "NUP155 1391 aa \u00b7 chai1 \u00b7 off \u00b7 10 recycles \u00b7 5 samples"
+    },
+    {
+      "gene": "NUP155",
+      "accession": "O75694",
+      "length": 1391,
+      "model": "chai1",
+      "mode": "fast",
+      "job_id": "20260930-204211-af0801d5",
+      "name": "NUP155 1391 aa \u00b7 chai1 \u00b7 fast \u00b7 10 recycles \u00b7 5 samples"
+    },
+    {
+      "gene": "NUP155",
+      "accession": "O75694",
+      "length": 1391,
+      "model": "esmfold2_lm600m",
+      "mode": "off",
+      "job_id": "20260930-204211-59b9bc01",
+      "name": "NUP155 1391 aa \u00b7 esmfold2_lm600m \u00b7 off \u00b7 10 recycles \u00b7 5 samples"
+    },
+    {
+      "gene": "NUP155",
+      "accession": "O75694",
+      "length": 1391,
+      "model": "esmfold2_lm600m",
+      "mode": "fast",
+      "job_id": "20260930-204211-3b46d6de",
+      "name": "NUP155 1391 aa \u00b7 esmfold2_lm600m \u00b7 fast \u00b7 10 recycles \u00b7 5 samples"
+    },
+    {
+      "gene": "NUP155",
+      "accession": "O75694",
+      "length": 1391,
+      "model": "esmfold2_lm300m",
+      "mode": "off",
+      "job_id": "20260930-204211-db4e2487",
+      "name": "NUP155 1391 aa \u00b7 esmfold2_lm300m \u00b7 off \u00b7 10 recycles \u00b7 5 samples"
+    },
+    {
+      "gene": "NUP155",
+      "accession": "O75694",
+      "length": 1391,
+      "model": "esmfold2_lm300m",
+      "mode": "fast",
+      "job_id": "20260930-204211-1a7f74ed",
+      "name": "NUP155 1391 aa \u00b7 esmfold2_lm300m \u00b7 fast \u00b7 10 recycles \u00b7 5 samples"
+    },
+    {
+      "gene": "SLC26A8",
+      "accession": "Q96RN1",
+      "length": 970,
+      "model": "intellifold2",
+      "mode": "off",
+      "job_id": "20260930-204914-6429048c",
+      "name": "SLC26A8 970 aa \u00b7 IntelliFold2 \u00b7 off \u00b7 10 recycles \u00b7 5 samples"
+    },
+    {
+      "gene": "SLC26A8",
+      "accession": "Q96RN1",
+      "length": 970,
+      "model": "intellifold2",
+      "mode": "fast",
+      "job_id": "20260930-204914-99129e5e",
+      "name": "SLC26A8 970 aa \u00b7 IntelliFold2 \u00b7 fast \u00b7 10 recycles \u00b7 5 samples"
+    },
+    {
+      "gene": "CHRNA7",
+      "accession": "P36544",
+      "length": 502,
+      "model": "boltz2",
+      "mode": "off",
+      "job_id": "20260930-205237-2a44f9b5",
+      "name": "CHRNA7 502 aa \u00b7 boltz2 \u00b7 off \u00b7 10 recycles \u00b7 5 samples"
+    },
+    {
+      "gene": "CHRNA7",
+      "accession": "P36544",
+      "length": 502,
+      "model": "boltz2",
+      "mode": "fast",
+      "job_id": "20260930-205237-9bdd2e46",
+      "name": "CHRNA7 502 aa \u00b7 boltz2 \u00b7 fast \u00b7 10 recycles \u00b7 5 samples"
+    },
+    {
+      "gene": "CHRNA7",
+      "accession": "P36544",
+      "length": 502,
+      "model": "rosettafold3",
+      "mode": "off",
+      "job_id": "20260930-205237-ba28e93a",
+      "name": "CHRNA7 502 aa \u00b7 rosettafold3 \u00b7 off \u00b7 10 recycles \u00b7 5 samples"
+    },
+    {
+      "gene": "CHRNA7",
+      "accession": "P36544",
+      "length": 502,
+      "model": "rosettafold3",
+      "mode": "fast",
+      "job_id": "20260930-205237-01791bdc",
+      "name": "CHRNA7 502 aa \u00b7 rosettafold3 \u00b7 fast \u00b7 10 recycles \u00b7 5 samples"
+    },
+    {
+      "gene": "CHRNA7",
+      "accession": "P36544",
+      "length": 502,
+      "model": "opendde",
+      "mode": "off",
+      "job_id": "20260930-205237-c640ba55",
+      "name": "CHRNA7 502 aa \u00b7 opendde \u00b7 off \u00b7 10 recycles \u00b7 5 samples"
+    },
+    {
+      "gene": "CHRNA7",
+      "accession": "P36544",
+      "length": 502,
+      "model": "opendde",
+      "mode": "fast",
+      "job_id": "20260930-205237-ebce404d",
+      "name": "CHRNA7 502 aa \u00b7 opendde \u00b7 fast \u00b7 10 recycles \u00b7 5 samples"
+    }
+  ]
+}

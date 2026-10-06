@@ -1,0 +1,74 @@
+{
+  "target": "EP300",
+  "sequence_length": 2414,
+  "source_fasta": "/mnt/data/RESULTS/mn-cofolding-workdir/workdir/runs/cofolding/long-protein-off-fast-big-20260930/sequences/EP300_Q09472.fasta",
+  "msa": "ColabFold MSA server; same sequence and mode for every model; shared AF3 MSA cache is enabled",
+  "framework": "mn-cofolding shared JAX AlphaFold 3 runner image",
+  "image": "mn-cofolding-af3-memory:3.1.14-cu13",
+  "gpu": "one scheduler-assigned GPU per job",
+  "profile": {
+    "optimization_mode": "big",
+    "num_recycles": 10,
+    "num_diffusion_samples": 5,
+    "seeds": [
+      1
+    ]
+  },
+  "models": [
+    {
+      "model": "openbind0",
+      "job_id": "20260930-191208-2321d8b6",
+      "name": "EP300 capability \u00b7 openbind0 \u00b7 big \u00b7 10 recycles \u00b7 5 samples"
+    },
+    {
+      "model": "openfold3",
+      "job_id": "20260930-191208-f37081af",
+      "name": "EP300 capability \u00b7 openfold3 \u00b7 big \u00b7 10 recycles \u00b7 5 samples"
+    },
+    {
+      "model": "boltz2",
+      "job_id": "20260930-191208-a434e904",
+      "name": "EP300 capability \u00b7 boltz2 \u00b7 big \u00b7 10 recycles \u00b7 5 samples"
+    },
+    {
+      "model": "protenix2",
+      "job_id": "20260930-191208-1d2064f5",
+      "name": "EP300 capability \u00b7 protenix2 \u00b7 big \u00b7 10 recycles \u00b7 5 samples"
+    },
+    {
+      "model": "rosettafold3",
+      "job_id": "20260930-191208-ebc3df98",
+      "name": "EP300 capability \u00b7 rosettafold3 \u00b7 big \u00b7 10 recycles \u00b7 5 samples"
+    },
+    {
+      "model": "chai1",
+      "job_id": "20260930-191208-7b1b3176",
+      "name": "EP300 capability \u00b7 chai1 \u00b7 big \u00b7 10 recycles \u00b7 5 samples"
+    },
+    {
+      "model": "intellifold2",
+      "job_id": "20260930-191208-6d9da9ee",
+      "name": "EP300 capability \u00b7 intellifold2 \u00b7 big \u00b7 10 recycles \u00b7 5 samples"
+    },
+    {
+      "model": "opendde",
+      "job_id": "20260930-191208-ce0aa18e",
+      "name": "EP300 capability \u00b7 opendde \u00b7 big \u00b7 10 recycles \u00b7 5 samples"
+    },
+    {
+      "model": "esmfold2",
+      "job_id": "20260930-191208-2c102336",
+      "name": "EP300 capability \u00b7 esmfold2 \u00b7 big \u00b7 10 recycles \u00b7 5 samples"
+    },
+    {
+      "model": "esmfold2_lm600m",
+      "job_id": "20260930-191208-d1afabd1",
+      "name": "EP300 capability \u00b7 esmfold2_lm600m \u00b7 big \u00b7 10 recycles \u00b7 5 samples"
+    },
+    {
+      "model": "esmfold2_lm300m",
+      "job_id": "20260930-191208-d255dfdd",
+      "name": "EP300 capability \u00b7 esmfold2_lm300m \u00b7 big \u00b7 10 recycles \u00b7 5 samples"
+    }
+  ]
+}

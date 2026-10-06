@@ -1,0 +1,147 @@
+{
+  "target": "next rung after v2 90-percent success checks",
+  "image": "mn-cofolding-af3-memory-v2:3.1.14-cu13",
+  "profile": {
+    "optimization_mode": "big",
+    "num_recycles": 10,
+    "num_diffusion_samples": 5,
+    "seeds": [
+      1
+    ]
+  },
+  "environment_overrides": {
+    "XLA_PYTHON_CLIENT_MEM_FRACTION": "0.90"
+  },
+  "runs": [
+    {
+      "gene": "SLC26A8",
+      "accession": "Q96RN1",
+      "length": 970,
+      "model": "boltz2",
+      "mode": "big",
+      "job_id": "20260930-222205-759d8d3a",
+      "name": "SLC26A8 970 aa \u00b7 boltz2 \u00b7 v2 big \u00b7 90% XLA next-rung check \u00b7 10 recycles \u00b7 5 samples",
+      "image": "mn-cofolding-af3-memory-v2:3.1.14-cu13",
+      "environment_overrides": {
+        "XLA_PYTHON_CLIENT_MEM_FRACTION": "0.90"
+      }
+    },
+    {
+      "gene": "SLC26A8",
+      "accession": "Q96RN1",
+      "length": 970,
+      "model": "rosettafold3",
+      "mode": "big",
+      "job_id": "20260930-222205-7268fd3d",
+      "name": "SLC26A8 970 aa \u00b7 rosettafold3 \u00b7 v2 big \u00b7 90% XLA next-rung check \u00b7 10 recycles \u00b7 5 samples",
+      "image": "mn-cofolding-af3-memory-v2:3.1.14-cu13",
+      "environment_overrides": {
+        "XLA_PYTHON_CLIENT_MEM_FRACTION": "0.90"
+      }
+    },
+    {
+      "gene": "LCT",
+      "accession": "P09848",
+      "length": 1927,
+      "model": "esmfold2_lm600m",
+      "mode": "big",
+      "job_id": "20260930-222205-67a41850",
+      "name": "LCT 1927 aa \u00b7 esmfold2_lm600m \u00b7 v2 big \u00b7 90% XLA next-rung check \u00b7 10 recycles \u00b7 5 samples",
+      "image": "mn-cofolding-af3-memory-v2:3.1.14-cu13",
+      "environment_overrides": {
+        "XLA_PYTHON_CLIENT_MEM_FRACTION": "0.90"
+      }
+    },
+    {
+      "gene": "LCT",
+      "accession": "P09848",
+      "length": 1927,
+      "model": "esmfold2_lm300m",
+      "mode": "big",
+      "job_id": "20260930-222205-d16fb718",
+      "name": "LCT 1927 aa \u00b7 esmfold2_lm300m \u00b7 v2 big \u00b7 90% XLA next-rung check \u00b7 10 recycles \u00b7 5 samples",
+      "image": "mn-cofolding-af3-memory-v2:3.1.14-cu13",
+      "environment_overrides": {
+        "XLA_PYTHON_CLIENT_MEM_FRACTION": "0.90"
+      }
+    },
+    {
+      "gene": "NUP155",
+      "accession": "O75694",
+      "length": 1391,
+      "model": "intellifold2",
+      "mode": "big",
+      "job_id": "20260930-222205-3d5d0a7c",
+      "name": "NUP155 1391 aa \u00b7 intellifold2 \u00b7 v2 big \u00b7 90% XLA next-rung check \u00b7 10 recycles \u00b7 5 samples",
+      "image": "mn-cofolding-af3-memory-v2:3.1.14-cu13",
+      "environment_overrides": {
+        "XLA_PYTHON_CLIENT_MEM_FRACTION": "0.90"
+      }
+    },
+    {
+      "gene": "NUP155",
+      "accession": "O75694",
+      "length": 1391,
+      "model": "esmfold2",
+      "mode": "big",
+      "job_id": "20260930-222205-9c2ef7a5",
+      "name": "NUP155 1391 aa \u00b7 esmfold2 \u00b7 v2 big \u00b7 90% XLA next-rung check \u00b7 10 recycles \u00b7 5 samples",
+      "image": "mn-cofolding-af3-memory-v2:3.1.14-cu13",
+      "environment_overrides": {
+        "XLA_PYTHON_CLIENT_MEM_FRACTION": "0.90"
+      }
+    },
+    {
+      "gene": "EP300",
+      "accession": "Q09472",
+      "length": 2414,
+      "model": "openbind0",
+      "mode": "big",
+      "job_id": "20260930-222205-a205ca6b",
+      "name": "EP300 2414 aa \u00b7 openbind0 \u00b7 v2 big \u00b7 90% XLA next-rung check \u00b7 10 recycles \u00b7 5 samples",
+      "image": "mn-cofolding-af3-memory-v2:3.1.14-cu13",
+      "environment_overrides": {
+        "XLA_PYTHON_CLIENT_MEM_FRACTION": "0.90"
+      }
+    },
+    {
+      "gene": "EP300",
+      "accession": "Q09472",
+      "length": 2414,
+      "model": "openfold3",
+      "mode": "big",
+      "job_id": "20260930-222205-4e1e7928",
+      "name": "EP300 2414 aa \u00b7 openfold3 \u00b7 v2 big \u00b7 90% XLA next-rung check \u00b7 10 recycles \u00b7 5 samples",
+      "image": "mn-cofolding-af3-memory-v2:3.1.14-cu13",
+      "environment_overrides": {
+        "XLA_PYTHON_CLIENT_MEM_FRACTION": "0.90"
+      }
+    },
+    {
+      "gene": "LCT",
+      "accession": "P09848",
+      "length": 1927,
+      "model": "protenix2",
+      "mode": "big",
+      "job_id": "20260930-222205-743f109f",
+      "name": "LCT 1927 aa \u00b7 protenix2 \u00b7 v2 big \u00b7 90% XLA next-rung check \u00b7 10 recycles \u00b7 5 samples",
+      "image": "mn-cofolding-af3-memory-v2:3.1.14-cu13",
+      "environment_overrides": {
+        "XLA_PYTHON_CLIENT_MEM_FRACTION": "0.90"
+      }
+    },
+    {
+      "gene": "LCT",
+      "accession": "P09848",
+      "length": 1927,
+      "model": "chai1",
+      "mode": "big",
+      "job_id": "20260930-222205-29d1dd0a",
+      "name": "LCT 1927 aa \u00b7 chai1 \u00b7 v2 big \u00b7 90% XLA next-rung check \u00b7 10 recycles \u00b7 5 samples",
+      "image": "mn-cofolding-af3-memory-v2:3.1.14-cu13",
+      "environment_overrides": {
+        "XLA_PYTHON_CLIENT_MEM_FRACTION": "0.90"
+      }
+    }
+  ]
+}

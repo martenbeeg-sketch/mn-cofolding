@@ -1,0 +1,30 @@
+{
+  "target": "Protenix2 v2 90 percent pool previous 970-aa max-pass rung",
+  "image": "mn-cofolding-af3-memory-v2:3.1.14-cu13",
+  "profile": {
+    "optimization_mode": "big",
+    "num_recycles": 10,
+    "num_diffusion_samples": 5,
+    "seeds": [
+      1
+    ]
+  },
+  "environment_overrides": {
+    "XLA_PYTHON_CLIENT_MEM_FRACTION": "0.90"
+  },
+  "runs": [
+    {
+      "job_id": "20260930-232712-ecb722f9",
+      "model": "protenix2",
+      "gene": "SLC26A8",
+      "accession": "Q96RN1",
+      "length": 970,
+      "name": "SLC26A8 970 aa \u00b7 protenix2 \u00b7 v2 big \u00b7 90% XLA prior max-pass validation \u00b7 10 recycles \u00b7 5 samples",
+      "image": "mn-cofolding-af3-memory-v2:3.1.14-cu13",
+      "mode": "big",
+      "environment_overrides": {
+        "XLA_PYTHON_CLIENT_MEM_FRACTION": "0.90"
+      }
+    }
+  ]
+}

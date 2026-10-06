@@ -1,0 +1,82 @@
+{
+  "target": "v2 command-buffer OOM mitigation check",
+  "image": "mn-cofolding-af3-memory-v2:3.1.14-cu13",
+  "profile": {
+    "optimization_mode": "big",
+    "num_recycles": 10,
+    "num_diffusion_samples": 5,
+    "seeds": [
+      1
+    ]
+  },
+  "environment_overrides": {
+    "XLA_FLAGS": "--xla_gpu_enable_triton_gemm=false --xla_gpu_enable_command_buffer="
+  },
+  "runs": [
+    {
+      "gene": "CHRNA7",
+      "accession": "P36544",
+      "length": 502,
+      "model": "boltz2",
+      "mode": "big",
+      "job_id": "20260930-220204-54e8b7f6",
+      "name": "CHRNA7 502 aa \u00b7 boltz2 \u00b7 v2 big \u00b7 command buffers disabled \u00b7 10 recycles \u00b7 5 samples",
+      "image": "mn-cofolding-af3-memory-v2:3.1.14-cu13",
+      "environment_overrides": {
+        "XLA_FLAGS": "--xla_gpu_enable_triton_gemm=false --xla_gpu_enable_command_buffer="
+      }
+    },
+    {
+      "gene": "CHRNA7",
+      "accession": "P36544",
+      "length": 502,
+      "model": "rosettafold3",
+      "mode": "big",
+      "job_id": "20260930-220204-998d854e",
+      "name": "CHRNA7 502 aa \u00b7 rosettafold3 \u00b7 v2 big \u00b7 command buffers disabled \u00b7 10 recycles \u00b7 5 samples",
+      "image": "mn-cofolding-af3-memory-v2:3.1.14-cu13",
+      "environment_overrides": {
+        "XLA_FLAGS": "--xla_gpu_enable_triton_gemm=false --xla_gpu_enable_command_buffer="
+      }
+    },
+    {
+      "gene": "NUP155",
+      "accession": "O75694",
+      "length": 1391,
+      "model": "chai1",
+      "mode": "big",
+      "job_id": "20260930-220204-d83b4f6e",
+      "name": "NUP155 1391 aa \u00b7 chai1 \u00b7 v2 big \u00b7 command buffers disabled \u00b7 10 recycles \u00b7 5 samples",
+      "image": "mn-cofolding-af3-memory-v2:3.1.14-cu13",
+      "environment_overrides": {
+        "XLA_FLAGS": "--xla_gpu_enable_triton_gemm=false --xla_gpu_enable_command_buffer="
+      }
+    },
+    {
+      "gene": "SLC26A8",
+      "accession": "Q96RN1",
+      "length": 970,
+      "model": "esmfold2",
+      "mode": "big",
+      "job_id": "20260930-220204-eda4fc2f",
+      "name": "SLC26A8 970 aa \u00b7 esmfold2 \u00b7 v2 big \u00b7 command buffers disabled \u00b7 10 recycles \u00b7 5 samples",
+      "image": "mn-cofolding-af3-memory-v2:3.1.14-cu13",
+      "environment_overrides": {
+        "XLA_FLAGS": "--xla_gpu_enable_triton_gemm=false --xla_gpu_enable_command_buffer="
+      }
+    },
+    {
+      "gene": "CHRNA7",
+      "accession": "P36544",
+      "length": 502,
+      "model": "opendde",
+      "mode": "big",
+      "job_id": "20260930-220204-39433c59",
+      "name": "CHRNA7 502 aa \u00b7 opendde \u00b7 v2 big \u00b7 command buffers disabled \u00b7 10 recycles \u00b7 5 samples",
+      "image": "mn-cofolding-af3-memory-v2:3.1.14-cu13",
+      "environment_overrides": {
+        "XLA_FLAGS": "--xla_gpu_enable_triton_gemm=false --xla_gpu_enable_command_buffer="
+      }
+    }
+  ]
+}

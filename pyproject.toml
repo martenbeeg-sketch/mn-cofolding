@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mn-cofolding"
+version = "0.1.0"
+description = "Portable Streamlit workbench for ColabFold and AlphaFold-family cofolding"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+  "fastapi>=0.110,<1",
+  "matplotlib>=3.8,<4",
+  "mn-compute-scheduler @ git+https://github.com/martenbeeg-sketch/mn-compute-scheduler.git@6609c7fb3e3816f2b41d8da360bdf7a5cb2f3c88",
+  "py2Dmol @ git+https://github.com/sokrypton/py2Dmol.git@67cbe73f06f49645291ea3e79a06293b0abaa3a7",
+  "pydantic>=2.6,<3",
+  "streamlit>=1.64,<2",
+  "typer>=0.12,<1",
+  "uvicorn[standard]>=0.27,<1",
+]
+
+[project.optional-dependencies]
+dev = ["httpx>=0.27,<1", "pytest>=8.3,<10"]
+
+[project.scripts]
+mn-cofolding = "mn_cofolding.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["mn_cofolding*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra"
