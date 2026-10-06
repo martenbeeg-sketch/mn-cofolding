@@ -17,13 +17,13 @@ DEFAULT_RESULTS_ROOT = Path(
 )
 ENGINE_LABELS = {
     "alphafold3": "AlphaFold 3",
-    "colabfold": "AlphaFold 2 Multimer · ColabFold kit",
+    "colabfold": "ColabFold",
     "boltz2": "Boltz-2",
     "protenix": "Protenix v2",
     "rf3_foundry": "RF3 Foundry",
-    "af2ig": "AF2-IG · speed only",
-    "esmfold2": "ESMFold 2 · optimization kit",
-    "chai1": "Chai-1 · optimization kit",
+    "af2ig": "AF2-IG",
+    "esmfold2": "ESMFold 2",
+    "chai1": "Chai-1",
 }
 ENGINE_ORDER = tuple(ENGINE_LABELS)
 # Keep engine identity stable across every chart, including charts where one or
@@ -931,6 +931,21 @@ def render_foldbench_dashboard(data: dict[str, Any] | None = None) -> None:
         if row.get("pdb_id")
     }
     engine_options = [engine for engine in ENGINE_ORDER if any(row.get("engine") == engine for row in profiles)]
+    # A Streamlit session can retain the engine multiselect value from before
+    # AF2-IG was added. Add the newly available profile once so it is visible
+    # in charts and the All profiles table without resetting the user's other
+    # engine choices.
+    for selection_key in ("foldbench_engine_view_engines", "foldbench_mode_view_engines"):
+        migrated_key = f"{selection_key}_af2ig_added"
+        if (
+            "af2ig" in engine_options
+            and selection_key in st.session_state
+            and not st.session_state.get(migrated_key, False)
+        ):
+            selected = list(st.session_state[selection_key])
+            if "af2ig" not in selected:
+                st.session_state[selection_key] = [*selected, "af2ig"]
+            st.session_state[migrated_key] = True
     filter_cols = st.columns([1.1, 2.5, 2.0, 3.4])
     with filter_cols[0]:
         chart_view = st.selectbox(
@@ -1182,7 +1197,7 @@ def render_foldbench_dashboard(data: dict[str, Any] | None = None) -> None:
                 "ColabFold settings": conditions.get("colabfold_settings"),
                 "ESMFold 2 settings": conditions.get("esmfold2_settings"),
                 "Chai-1 settings": conditions.get("chai1_settings"),
-                "AF2-IG speed-only settings": conditions.get("af2ig"),
+                "AF2-IG settings": conditions.get("af2ig"),
                 "Excluded engines": conditions.get("excluded_engine_notes"),
             }
         )

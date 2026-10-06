@@ -575,7 +575,7 @@ def render_job_result(job_id: str, store, settings: Settings) -> None:
     if direct_kit_benchmark:
         settings_rows.insert(-1, {"Setting": "Direct kit mode", "Value": str(benchmark.get("mode", "—"))})
         if benchmark.get("engine") == "af2ig":
-            settings_rows.insert(-1, {"Setting": "Benchmark engine", "Value": "AF2-IG acceleration kit"})
+            settings_rows.insert(-1, {"Setting": "Benchmark engine", "Value": "AF2-IG"})
         if benchmark.get("mode_levers_off"):
             settings_rows.insert(-1, {"Setting": "Kit levers withheld", "Value": str(benchmark["mode_levers_off"])})
     elif model.family == "af3":
