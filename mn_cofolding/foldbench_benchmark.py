@@ -17,6 +17,7 @@ DEFAULT_RESULTS_ROOT = Path(
 )
 ENGINE_LABELS = {
     "alphafold3": "AlphaFold 3",
+    "openfold3": "AF3-JAX + OpenFold3 P2 weights",
     "colabfold": "ColabFold",
     "boltz2": "Boltz-2",
     "protenix": "Protenix v2",
@@ -24,12 +25,27 @@ ENGINE_LABELS = {
     "af2ig": "AF2-IG",
     "esmfold2": "ESMFold 2",
     "chai1": "Chai-1",
+    "atlasfold": "AtlasFold-M",
+    "openfold3_ob0": "OpenFold3 0.5.0 · OpenBind-0",
+}
+# The multiselect stores option values in Streamlit session state.  Older
+# dashboard sessions stored the former display labels instead, so keep those
+# labels as aliases and always convert them back to the stable engine IDs.
+ENGINE_SELECTION_ALIASES = {
+    **{engine: engine for engine in ENGINE_LABELS},
+    **{label: engine for engine, label in ENGINE_LABELS.items()},
+    "AlphaFold 2 Multimer · ColabFold kit": "colabfold",
+    "AF2-IG · speed only": "af2ig",
+    "AF2-IG · structure-informed": "af2ig",
+    "ESMFold 2 · optimization kit": "esmfold2",
+    "Chai-1 · optimization kit": "chai1",
 }
 ENGINE_ORDER = tuple(ENGINE_LABELS)
 # Keep engine identity stable across every chart, including charts where one or
 # more engines are absent from the selected data.
 ENGINE_COLORS = {
     "alphafold3": "#4C78A8",
+    "openfold3": "#9D755D",
     "colabfold": "#F58518",
     "boltz2": "#54A24B",
     "protenix": "#B279A2",
@@ -37,6 +53,8 @@ ENGINE_COLORS = {
     "af2ig": "#72B7B2",
     "esmfold2": "#FF9DA6",
     "chai1": "#79706E",
+    "atlasfold": "#B8A04A",
+    "openfold3_ob0": "#6B6ECF",
 }
 CHART_DPI = 100
 DEFAULT_CHART_LAYOUT = {
@@ -58,6 +76,68 @@ MODE_COLORS = {
     "fast": "#54A24B",
     "big": "#E45756",
 }
+
+
+def _canonical_engine_id(value: object) -> str:
+    text = str(value)
+    return ENGINE_SELECTION_ALIASES.get(text, text)
+
+
+def _canonical_engine_selection(
+    values: object,
+    available: set[str] | None = None,
+) -> list[str]:
+    """Convert current and legacy engine selections to stable internal IDs."""
+    if isinstance(values, str):
+        values = [values]
+    if not isinstance(values, (list, tuple, set)):
+        return []
+    selected = []
+    for value in values:
+        engine = _canonical_engine_id(value)
+        if available is not None and engine not in available:
+            continue
+        if engine not in selected:
+            selected.append(engine)
+    return selected
+
+
+def _set_picker_selection_state(
+    selection_key: str,
+    options: list[str],
+    selected: list[str],
+) -> None:
+    """Keep a compact picker and its stored selection synchronized."""
+    selected_ids = set(selected)
+    st.session_state[selection_key] = [
+        value for value in options if value in selected_ids
+    ]
+    for value in options:
+        st.session_state[f"{selection_key}:{value}"] = value in selected_ids
+
+
+def _sync_picker_selection_from_checkboxes(
+    selection_key: str,
+    options: list[str],
+) -> None:
+    """Persist a checkbox change before the dashboard reruns."""
+    st.session_state[selection_key] = [
+        value
+        for value in options
+        if st.session_state.get(f"{selection_key}:{value}", False)
+    ]
+
+
+def _render_filter_title(title: str) -> None:
+    """Render a compact title with the same height as Streamlit widget labels."""
+    st.markdown(
+        (
+            "<div style=\"font-size:0.875rem;line-height:1.5rem;"
+            "height:1.5rem;margin:0 0 0.3125rem 0;padding:0;font-weight:600;\">"
+            f"{title}</div>"
+        ),
+        unsafe_allow_html=True,
+    )
 
 
 def results_root() -> Path:
@@ -194,9 +274,129 @@ def _load_af2ig_steady_profiles(
     return profiles, conditions
 
 
+def _load_atlasfold_profiles(
+    root: Path,
+    targets: list[dict[str, Any]],
+    job_index: dict[tuple[str, str, str], dict[str, Any]],
+) -> tuple[list[dict[str, Any]], list[dict[str, Any]], dict[str, Any]]:
+    """Load AtlasFold kit benchmark profiles and structure scores."""
+    summary_path = root / "atlasfold" / "benchmark_summary.json"
+    if not summary_path.is_file():
+        return [], [], {}
+    try:
+        batch = json.loads(summary_path.read_text(encoding="utf-8"))
+    except (OSError, UnicodeDecodeError, json.JSONDecodeError):
+        return [], [], {}
+    target_index = {
+        str(row.get("pdb_id")): row
+        for row in targets
+        if isinstance(row, dict) and row.get("pdb_id")
+    }
+    profiles: list[dict[str, Any]] = []
+    for item in batch.get("profile_summaries", []):
+        if not isinstance(item, dict):
+            continue
+        pdb_id = str(item.get("pdb_id") or "")
+        mode = str(item.get("mode") or "")
+        target = target_index.get(pdb_id, {})
+        job = job_index.get((pdb_id, "atlasfold", mode), {})
+        structures = int(item.get("n_structures_found") or 0)
+        scored = int(item.get("n_scored") or 0)
+        expected = int(item.get("expected_structures") or 1)
+        complete = item.get("run_status") == "completed" and structures == expected and scored == expected
+        memory = item.get("peak_memory_mib_by_gpu") or {}
+        job_id = str(job.get("job_id") or item.get("job_id") or "")
+        profiles.append(
+            {
+                **item,
+                "engine": "atlasfold",
+                "engine_label": ENGINE_LABELS["atlasfold"],
+                "pdb_id": pdb_id,
+                "target_title": target.get("title", pdb_id),
+                "total_residues": int(item.get("total_residues") or target.get("total_residues") or 0),
+                "expected_structures": expected,
+                "profile_complete": complete,
+                "completed_seeds": int(item.get("completed_seeds") or structures),
+                "forward_display_seconds": item.get("forward_display_seconds") or item.get("inference_seconds"),
+                "forward_per_seed_seconds": item.get("forward_per_seed_seconds") or item.get("inference_seconds"),
+                "gpu0_gib": float(memory["0"]) / 1024 if memory.get("0") is not None else None,
+                "gpu1_gib": float(memory["1"]) / 1024 if memory.get("1") is not None else None,
+                "app_status": item.get("app_status") or job.get("status", "not registered"),
+                "app_job_id": job_id,
+                "app_job_url": f"?job_id={quote(job_id, safe='')}" if job_id else "",
+            }
+        )
+    structures = [
+        {**row, "engine": "atlasfold"}
+        for row in batch.get("structures", [])
+        if isinstance(row, dict)
+    ]
+    return profiles, structures, dict(batch.get("conditions") or {})
+
+
+def _load_openfold3_native_profiles(
+    root: Path,
+    targets: list[dict[str, Any]],
+    job_index: dict[tuple[str, str, str], dict[str, Any]],
+) -> tuple[list[dict[str, Any]], list[dict[str, Any]], dict[str, Any]]:
+    """Load native OpenFold3/OpenBind-0 benchmark profiles and app structure rows."""
+    summary_path = root / "openfold3_ob0" / "benchmark_summary.json"
+    if not summary_path.is_file():
+        return [], [], {}
+    try:
+        batch = json.loads(summary_path.read_text(encoding="utf-8"))
+    except (OSError, UnicodeDecodeError, json.JSONDecodeError):
+        return [], [], {}
+    target_index = {
+        str(row.get("pdb_id")): row
+        for row in targets
+        if isinstance(row, dict) and row.get("pdb_id")
+    }
+    profiles: list[dict[str, Any]] = []
+    for item in batch.get("profile_summaries", []):
+        if not isinstance(item, dict):
+            continue
+        pdb_id = str(item.get("pdb_id") or "")
+        mode = str(item.get("mode") or "")
+        target = target_index.get(pdb_id, {})
+        job = job_index.get((pdb_id, "openfold3_ob0", mode), {})
+        structures = int(item.get("n_structures_found") or 0)
+        scored = int(item.get("n_scored") or 0)
+        expected = int(item.get("expected_structures") or 15)
+        complete = item.get("run_status") == "completed" and structures == expected and scored == expected
+        memory = item.get("peak_memory_mib_by_gpu") or {}
+        job_id = str(job.get("job_id") or item.get("job_id") or "")
+        profiles.append(
+            {
+                **item,
+                "engine": "openfold3_ob0",
+                "engine_label": ENGINE_LABELS["openfold3_ob0"],
+                "pdb_id": pdb_id,
+                "target_title": target.get("title", pdb_id),
+                "total_residues": int(item.get("total_residues") or target.get("total_residues") or 0),
+                "expected_structures": expected,
+                "profile_complete": complete,
+                "completed_seeds": int(item.get("completed_seeds") or structures // 5),
+                "forward_display_seconds": item.get("forward_display_seconds") or item.get("inference_seconds"),
+                "forward_per_seed_seconds": item.get("forward_per_seed_seconds") or item.get("inference_seconds"),
+                "gpu0_gib": float(memory["0"]) / 1024 if memory.get("0") is not None else None,
+                "gpu1_gib": float(memory["1"]) / 1024 if memory.get("1") is not None else None,
+                "app_status": item.get("app_status") or job.get("status", "not registered"),
+                "app_job_id": job_id,
+                "app_job_url": f"?job_id={quote(job_id, safe='')}" if job_id else "",
+            }
+        )
+    structures = [
+        {**row, "engine": "openfold3_ob0"}
+        for row in batch.get("structures", [])
+        if isinstance(row, dict)
+    ]
+    return profiles, structures, dict(batch.get("conditions") or {})
+
+
 @st.cache_data(show_spinner=False, ttl=60, max_entries=4)
-def _load_data(root_text: str, results_mtime: int, jobs_mtime: int, af2ig_mtime: int) -> dict[str, Any] | None:
-    del results_mtime, jobs_mtime, af2ig_mtime  # Included in the cache key for file-change invalidation.
+def _load_data(root_text: str, results_mtime: int, jobs_mtime: int, af2ig_mtime: int, atlasfold_mtime: int, openfold3_native_mtime: int) -> dict[str, Any] | None:
+    del results_mtime, jobs_mtime, af2ig_mtime, atlasfold_mtime, openfold3_native_mtime  # Included in the cache key for file-change invalidation.
     root = Path(root_text)
     result_path = root / "benchmark_results.json"
     if not result_path.is_file():
@@ -284,6 +484,14 @@ def _load_data(root_text: str, results_mtime: int, jobs_mtime: int, af2ig_mtime:
     conditions = dict(results.get("conditions", {}))
     if af2ig_conditions:
         conditions["af2ig"] = af2ig_conditions
+    atlasfold_profiles, atlasfold_structures, atlasfold_conditions = _load_atlasfold_profiles(root, targets, job_index)
+    profiles.extend(atlasfold_profiles)
+    if atlasfold_conditions:
+        conditions["atlasfold"] = atlasfold_conditions
+    native_profiles, native_structures, native_conditions = _load_openfold3_native_profiles(root, targets, job_index)
+    profiles.extend(native_profiles)
+    if native_conditions:
+        conditions["openfold3_ob0"] = native_conditions
 
     return {
         "root": root_text,
@@ -291,10 +499,14 @@ def _load_data(root_text: str, results_mtime: int, jobs_mtime: int, af2ig_mtime:
         "conditions": conditions,
         "targets": targets,
         "profiles": profiles,
-        "structures": results.get("structures", []),
+        "structures": [*results.get("structures", []), *atlasfold_structures, *native_structures],
         "registered_jobs": jobs,
         "profile_csv": root / "profile_summary.csv",
         "af2ig_profile_csv": root / "af2ig" / "steady_state_20261006" / "af2ig_steady_state_profile.csv",
+        "atlasfold_profile_csv": root / "atlasfold" / "profile_summary.csv",
+        "atlasfold_results_json": root / "atlasfold" / "benchmark_summary.json",
+        "openfold3_native_profile_csv": root / "openfold3_ob0" / "profile_summary.csv",
+        "openfold3_native_results_json": root / "openfold3_ob0" / "benchmark_summary.json",
         "structure_csv": root / "structure_scores.csv",
         "results_json": result_path,
     }
@@ -303,6 +515,8 @@ def _load_data(root_text: str, results_mtime: int, jobs_mtime: int, af2ig_mtime:
 def load_foldbench_data(root: Path | None = None) -> dict[str, Any] | None:
     root = (root or results_root()).expanduser().resolve()
     af2ig_root = root / "af2ig" / "steady_state_20261006"
+    atlasfold_root = root / "atlasfold"
+    openfold3_native_root = root / "openfold3_ob0"
     af2ig_mtime = max(
         (
             _mtime_ns(path)
@@ -314,11 +528,21 @@ def load_foldbench_data(root: Path | None = None) -> dict[str, Any] | None:
         ),
         default=0,
     )
+    atlasfold_mtime = max(
+        (_mtime_ns(path) for path in [atlasfold_root / "benchmark_summary.json", atlasfold_root / "profile_summary.csv"]),
+        default=0,
+    )
+    openfold3_native_mtime = max(
+        (_mtime_ns(path) for path in [openfold3_native_root / "benchmark_summary.json", openfold3_native_root / "profile_summary.csv"]),
+        default=0,
+    )
     return _load_data(
         str(root),
         _mtime_ns(root / "benchmark_results.json"),
         _mtime_ns(root / "registered_jobs.json"),
         af2ig_mtime,
+        atlasfold_mtime,
+        openfold3_native_mtime,
     )
 
 
@@ -454,7 +678,8 @@ def render_foldbench_overview(data: dict[str, Any] | None = None) -> None:
     st.subheader("FoldBench heterodimer benchmark")
     st.caption(
         "Sequence engines use shared local unpaired MSAs. Most use three seeds × five structures; ESMFold 2 "
-        "and Chai-1 use 15 seeds × one structure. AF2-IG contributes speed-only profiles from three warm repeats; "
+        "and Chai-1 use 15 seeds × one structure. AtlasFold-M uses AtlasLM single-sequence embeddings without an external AA MSA. "
+        "AF2-IG contributes speed-only profiles from three warm repeats; "
         "it starts from the supplied native complex and is excluded from DockQ figures. "
         "Other predictions are scored with DockQ-v2 against the native chain pair. "
         "Open the dashboard for target-length plots, GPU memory, and per-structure scores."
@@ -489,10 +714,11 @@ def _selected_profiles(
     engines: list[str],
     targets: list[str],
 ) -> list[dict[str, Any]]:
+    selected_engine_ids = set(_canonical_engine_selection(engines))
     return [
         row for row in _complete_profiles(data)
         if (modes is None or row.get("mode") in modes)
-        and row.get("engine") in engines
+        and row.get("engine") in selected_engine_ids
         and row.get("pdb_id") in targets
     ]
 
@@ -903,8 +1129,9 @@ def render_foldbench_dashboard(data: dict[str, Any] | None = None) -> None:
     st.caption(
         f"Experiment `{data.get('experiment', EXPERIMENT)}` · five two-chain targets. Most sequence-engine profiles use "
         "three seeds × five structures; ESMFold 2 and Chai-1 use 15 seeds × one structure. AF2-IG contributes "
-        "speed-only profiles from three warm repeats per target/mode. All runs use GPU 0; big uses GPUs 0 and 1 for engines with "
-        "two-GPU sharding, while Chai-1 big remains single-GPU. ColabFold uses its kit's AlphaFold 2 Multimer v3 workflow."
+        "speed-only profiles from three warm repeats per target/mode. AtlasFold-M uses no external AA MSA and runs every mode on GPU 0; "
+        "its `big` mode reduces memory without multi-GPU sharding. Other big modes use GPUs 0 and 1 only where their engine supports "
+        "single-prediction sharding. ColabFold uses its kit's AlphaFold 2 Multimer v3 workflow."
     )
     af2ig_conditions = data.get("conditions", {}).get("af2ig", {})
     if af2ig_conditions:
@@ -931,21 +1158,16 @@ def render_foldbench_dashboard(data: dict[str, Any] | None = None) -> None:
         if row.get("pdb_id")
     }
     engine_options = [engine for engine in ENGINE_ORDER if any(row.get("engine") == engine for row in profiles)]
-    # A Streamlit session can retain the engine multiselect value from before
-    # AF2-IG was added. Add the newly available profile once so it is visible
-    # in charts and the All profiles table without resetting the user's other
-    # engine choices.
+    # A Streamlit session can retain engine display labels from before the
+    # naming cleanup, or omit engines added later. Normalize the stored values
+    # before the widgets are instantiated so filtering always uses IDs.
+    available_engine_ids = set(engine_options)
     for selection_key in ("foldbench_engine_view_engines", "foldbench_mode_view_engines"):
-        migrated_key = f"{selection_key}_af2ig_added"
-        if (
-            "af2ig" in engine_options
-            and selection_key in st.session_state
-            and not st.session_state.get(migrated_key, False)
-        ):
-            selected = list(st.session_state[selection_key])
-            if "af2ig" not in selected:
-                st.session_state[selection_key] = [*selected, "af2ig"]
-            st.session_state[migrated_key] = True
+        if selection_key in st.session_state:
+            st.session_state[selection_key] = _canonical_engine_selection(
+                st.session_state[selection_key],
+                available=available_engine_ids,
+            )
     filter_cols = st.columns([1.1, 2.5, 2.0, 3.4])
     with filter_cols[0]:
         chart_view = st.selectbox(
@@ -955,13 +1177,69 @@ def render_foldbench_dashboard(data: dict[str, Any] | None = None) -> None:
             key="foldbench_visualization",
         )
     with filter_cols[1]:
-        selected_engines = st.multiselect(
-            "Engines",
-            options=engine_options,
-            default=engine_options if chart_view == "engine" else engine_options[:1],
-            format_func=lambda value: ENGINE_LABELS.get(value, value),
-            key=("foldbench_engine_view_engines" if chart_view == "engine" else "foldbench_mode_view_engines"),
+        _render_filter_title("Engines")
+        engine_selection_key = (
+            "foldbench_engine_view_engines"
+            if chart_view == "engine"
+            else "foldbench_mode_view_engines"
         )
+        default_engines = engine_options if chart_view == "engine" else engine_options[:1]
+        if engine_selection_key not in st.session_state:
+            st.session_state[engine_selection_key] = list(default_engines)
+        selected_engines = _canonical_engine_selection(
+            st.session_state.get(engine_selection_key, []),
+            available=available_engine_ids,
+        )
+        st.session_state[engine_selection_key] = selected_engines
+        if not engine_options:
+            st.warning("No engines are available for the current data.")
+        else:
+            if len(selected_engines) == len(engine_options):
+                engine_summary = f"All engines ({len(engine_options)})"
+            elif selected_engines:
+                engine_summary = f"{len(selected_engines)} engines selected"
+            else:
+                engine_summary = "No engines selected"
+            with st.popover(
+                engine_summary,
+                use_container_width=True,
+                key=f"{engine_selection_key}:popover",
+            ):
+                action_cols = st.columns(2)
+                with action_cols[0]:
+                    st.button(
+                        "Select all",
+                        key=f"{engine_selection_key}:select_all",
+                        use_container_width=True,
+                        on_click=_set_picker_selection_state,
+                        args=(engine_selection_key, engine_options, engine_options),
+                    )
+                with action_cols[1]:
+                    st.button(
+                        "Clear all",
+                        key=f"{engine_selection_key}:clear_all",
+                        use_container_width=True,
+                        on_click=_set_picker_selection_state,
+                        args=(engine_selection_key, engine_options, []),
+                    )
+                st.caption("Choose one or more engines for the current view.")
+                engine_checks: dict[str, bool] = {}
+                check_cols = st.columns(2)
+                for index, engine in enumerate(engine_options):
+                    check_key = f"{engine_selection_key}:{engine}"
+                    if check_key not in st.session_state:
+                        st.session_state[check_key] = engine in selected_engines
+                    with check_cols[index % 2]:
+                        engine_checks[engine] = st.checkbox(
+                            ENGINE_LABELS.get(engine, engine),
+                            key=check_key,
+                            on_change=_sync_picker_selection_from_checkboxes,
+                            args=(engine_selection_key, engine_options),
+                        )
+                selected_engines = [
+                    engine for engine in engine_options if engine_checks.get(engine, False)
+                ]
+                st.session_state[engine_selection_key] = selected_engines
     with filter_cols[2]:
         selected_modes = st.multiselect(
             "Modes",
@@ -971,14 +1249,70 @@ def render_foldbench_dashboard(data: dict[str, Any] | None = None) -> None:
             key=("foldbench_engine_view_modes" if chart_view == "engine" else "foldbench_mode_view_modes"),
         )
     with filter_cols[3]:
-        selected_targets = st.multiselect(
-            "Targets",
-            options=target_order,
-            default=target_order,
-            format_func=lambda value: f"{value} · {target_index[value].get('title', value)}",
-            key="foldbench_targets",
-        )
+        _render_filter_title("Targets")
+        target_selection_key = "foldbench_targets"
+        if target_selection_key not in st.session_state:
+            st.session_state[target_selection_key] = list(target_order)
+        selected_targets = [
+            target for target in target_order
+            if target in st.session_state.get(target_selection_key, [])
+        ]
+        st.session_state[target_selection_key] = selected_targets
+        if not target_order:
+            st.warning("No targets are available for the current data.")
+        else:
+            if len(selected_targets) == len(target_order):
+                target_summary = f"All targets ({len(target_order)})"
+            elif selected_targets:
+                target_summary = f"{len(selected_targets)} targets selected"
+            else:
+                target_summary = "No targets selected"
+            with st.popover(
+                target_summary,
+                use_container_width=True,
+                key=f"{target_selection_key}:popover",
+            ):
+                action_cols = st.columns(2)
+                with action_cols[0]:
+                    st.button(
+                        "Select all",
+                        key=f"{target_selection_key}:select_all",
+                        use_container_width=True,
+                        on_click=_set_picker_selection_state,
+                        args=(target_selection_key, target_order, target_order),
+                    )
+                with action_cols[1]:
+                    st.button(
+                        "Clear all",
+                        key=f"{target_selection_key}:clear_all",
+                        use_container_width=True,
+                        on_click=_set_picker_selection_state,
+                        args=(target_selection_key, target_order, []),
+                    )
+                st.caption("Choose one or more targets for the current view.")
+                target_checks: dict[str, bool] = {}
+                check_cols = st.columns(2)
+                for index, target in enumerate(target_order):
+                    check_key = f"{target_selection_key}:{target}"
+                    if check_key not in st.session_state:
+                        st.session_state[check_key] = target in selected_targets
+                    target_label = f"{target} · {target_index[target].get('title', target)}"
+                    with check_cols[index % 2]:
+                        target_checks[target] = st.checkbox(
+                            target_label,
+                            key=check_key,
+                            on_change=_sync_picker_selection_from_checkboxes,
+                            args=(target_selection_key, target_order),
+                        )
+                selected_targets = [
+                    target for target in target_order if target_checks.get(target, False)
+                ]
+                st.session_state[target_selection_key] = selected_targets
 
+    selected_engines = _canonical_engine_selection(
+        selected_engines,
+        available=available_engine_ids,
+    )
     chart_layout = _chart_layout_controls()
     chart_rows = _selected_profiles(
         data,
@@ -1032,8 +1366,8 @@ def render_foldbench_dashboard(data: dict[str, Any] | None = None) -> None:
             "Values above 1× are faster than off; values below 1× are slower."
         )
         st.caption(
-            "Forward time averages model calls over completed seeds: most engines use five structures per seed, while ESMFold 2 "
-            "and Chai-1 use one. AF2-IG reports the per-target median of three warmed model-forward repeats. Its per-target "
+            "Forward time averages model calls over completed seeds: most engines use five structures per seed, while ESMFold 2, "
+            "Chai-1, and the AtlasFold benchmark use one. AF2-IG reports the per-target median of three warmed model-forward repeats. Its per-target "
             "wall time and GPU memory are omitted because the repeat run only supports matched forward timing. Shared MSA generation "
             "is excluded. Incomplete profiles are omitted."
         )
@@ -1095,7 +1429,8 @@ def render_foldbench_dashboard(data: dict[str, Any] | None = None) -> None:
             st.dataframe(selected_scores, hide_index=True, width="stretch")
         st.caption(
             "The 0.23 line is the configured DockQ success cutoff. AF2-IG is intentionally omitted from DockQ figures; its "
-            "structure-informed, single-sequence timing profile is shown only in the Speed tab."
+            "structure-informed, single-sequence timing profile is shown only in the Speed tab. AtlasFold scores are from "
+            "AtlasFold-M predictions made from sequence and AtlasLM embeddings without an external AA MSA."
         )
 
     with memory_tab:
@@ -1151,12 +1486,14 @@ def render_foldbench_dashboard(data: dict[str, Any] | None = None) -> None:
                 "Incomplete rows remain visible for diagnosis but are excluded from speed and quality charts. "
                 "See each row's status and mode note for details."
             )
-        download_cols = st.columns(4)
+        download_cols = st.columns(6)
         for col, key, label, mime in (
             (download_cols[0], "profile_csv", "Download profile CSV", "text/csv"),
             (download_cols[1], "af2ig_profile_csv", "Download AF2-IG timing CSV", "text/csv"),
             (download_cols[2], "structure_csv", "Download DockQ CSV", "text/csv"),
             (download_cols[3], "results_json", "Download benchmark JSON", "application/json"),
+            (download_cols[4], "atlasfold_profile_csv", "Download AtlasFold profile CSV", "text/csv"),
+            (download_cols[5], "atlasfold_results_json", "Download AtlasFold records", "application/json"),
         ):
             path = data[key]
             if path.is_file():
@@ -1165,7 +1502,7 @@ def render_foldbench_dashboard(data: dict[str, Any] | None = None) -> None:
                     data=path.read_bytes(),
                     file_name=path.name,
                     mime=mime,
-                    key=f"foldbench-download-{path.name}",
+                    key=f"foldbench-download-{key}",
                 )
 
     with st.expander("Benchmark conditions and target MSAs"):
@@ -1198,6 +1535,7 @@ def render_foldbench_dashboard(data: dict[str, Any] | None = None) -> None:
                 "ESMFold 2 settings": conditions.get("esmfold2_settings"),
                 "Chai-1 settings": conditions.get("chai1_settings"),
                 "AF2-IG settings": conditions.get("af2ig"),
+                "AtlasFold settings": conditions.get("atlasfold"),
                 "Excluded engines": conditions.get("excluded_engine_notes"),
             }
         )
